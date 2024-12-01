@@ -34,7 +34,7 @@ public class Globe {
         Material material = new Material(new Vec3(1.0f, 0.5f, 0.31f), new Vec3(1.0f, 0.5f, 0.31f), new Vec3(0.5f, 0.5f, 0.5f), 32.0f);
 
         // *** scale by cubeHeight
-        Mat4 modelMatrix = Mat4.multiply(Mat4Transform.scale(cubeHeight,cubeHeight,cubeHeight), Mat4Transform.translate(2f,0.5f,5f));
+        Mat4 modelMatrix = Mat4.multiply(Mat4Transform.scale(cubeHeight,cubeHeight,cubeHeight), Mat4Transform.translate(3f,0.5f,6f));
         Model cube = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t0);
         return cube;
     }
@@ -51,7 +51,7 @@ public class Globe {
         // *** translate to top  of cube, and also scale by sphereHeight
         Mat4 modelMatrix = Mat4Transform.translate(0,cubeHeight,0);
         modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.scale(sphereHeight, sphereHeight, sphereHeight));
-        modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.translate(2f,0.5f,5f));
+        modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.translate(3f,0.6f,6f));
         Model sphere = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t1);
         return sphere;
     }
@@ -68,8 +68,8 @@ public class Globe {
         // *** translate to top  of cube, and also scale by sphereHeight
         Mat4 modelMatrix = Mat4Transform.translate(0,cubeHeight,0);
         modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.scale(sphereHeight, sphereHeight, sphereHeight));
-        modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.translate(2f,0.5f,5f));
-        modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.scale(0.1f, 1.2f, 0.1f));
+        modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.translate(3f,0.5f,6f));
+        modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.scale(0.1f, 1.5f, 0.1f));
         Model stand = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t2);
         return stand;
     }
@@ -88,7 +88,7 @@ public class Globe {
         float yAngle = (float)(elapsedTime*100);
         m = Mat4Transform.translate(0,cubeHeight,0);
         m = Mat4.multiply(m, Mat4Transform.scale(sphereHeight, sphereHeight, sphereHeight));
-        m = Mat4.multiply(m, Mat4Transform.translate(2f,0.5f,5f));
+        m = Mat4.multiply(m, Mat4Transform.translate(3f,0.6f,6f));
         m = Mat4.multiply(m, Mat4Transform.rotateAroundY(yAngle));
         return m;
     }

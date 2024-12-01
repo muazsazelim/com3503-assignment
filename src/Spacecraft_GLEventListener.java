@@ -71,10 +71,12 @@ public class Spacecraft_GLEventListener implements GLEventListener {
   private Room room;
   private Space space;
   private Globe globe;
+  private Robot1 robot1;
   private Light[] lights = new Light[2];
 
   private void loadTextures(GL3 gl) {
     textures = new TextureLibrary();
+    textures.add(gl, "chequerboard", "assets/textures/chequerboard.jpg");
     textures.add(gl, "container_diffuse", "assets/textures/container2.jpg");
     textures.add(gl, "container_specular", "assets/textures/container2_specular.jpg");
     textures.add(gl, "square", "assets/textures/square.jpg");
@@ -86,7 +88,7 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     textures.add(gl, "space", "assets/textures/space.jpg");
     textures.add(gl, "globe", "assets/textures/globe.jpg");
     textures.add(gl, "box", "assets/textures/box.jpg");
-
+    textures.add(gl, "robot1base", "assets/textures/robot1-base.jpg");
 
   }
 
@@ -98,10 +100,12 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     lights[0].setCamera(camera);
     lights[1] = new Light(gl);
     lights[1].setCamera(camera);
-    room = new Room(gl, camera, lights, textures.get("square"), textures.get("sportrim"), textures.get("sky"), textures.get("back_wall_diffuse"), textures.get("back_wall_specular"));
+    room = new Room(gl, camera, lights, textures.get("chequerboard"), textures.get("sportrim"), textures.get("sky"), textures.get("back_wall_diffuse"), textures.get("back_wall_specular"));
     space = new Space(gl, camera, lights);
     space.loadTextures(gl);
     globe = new Globe(gl, camera, lights, textures.get("box"), textures.get("globe"), textures.get("space"));
+    robot1 = new Robot1(gl, camera, lights, textures.get("robot1base"));
+    robot1.initialise(gl);
   }
 
 
@@ -110,6 +114,7 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     room.render(gl);
     space.render(gl);
     globe.render(gl);
+    robot1.render(gl);
   }
 
   
