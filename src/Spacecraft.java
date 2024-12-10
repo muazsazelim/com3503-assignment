@@ -6,13 +6,13 @@ import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 
-public class Spacecraft extends JFrame {
+public class Spacecraft extends JFrame implements ActionListener{
   
   private static final int WIDTH = 1024;
   private static final int HEIGHT = 768;
   private static final Dimension dimension = new Dimension(WIDTH, HEIGHT);
   private GLCanvas canvas;
-  private GLEventListener glEventListener;
+  private Spacecraft_GLEventListener glEventListener;
   private final FPSAnimator animator; 
 
   public static void main(String[] args) {
@@ -44,20 +44,40 @@ public class Spacecraft extends JFrame {
     canvas.addKeyListener(new MyKeyboardInput(camera));
     getContentPane().add(canvas, BorderLayout.CENTER);
 
+
+    // User Interface
+
     JMenuBar menuBar=new JMenuBar();
     this.setJMenuBar(menuBar);
       JMenu fileMenu = new JMenu("File");
         JMenuItem quitItem = new JMenuItem("Quit");
-        // quitItem.addActionListener(this);
+        quitItem.addActionListener(this);
         fileMenu.add(quitItem);
     menuBar.add(fileMenu);
 
     JPanel p = new JPanel();
-    JButton b = new JButton("camera X");
-    // b.addActionListener(this);
+    JButton b = new JButton("Move Robot 1");
+      b.addActionListener(this);
+    p.add(b);
+    b = new JButton("Stop Robot 1");
+      b.addActionListener(this);
     p.add(b);
     this.add(p, BorderLayout.SOUTH);
 
+  }
+
+  // Function for User Interface
+
+  public void actionPerformed(ActionEvent e) {
+    if (e.getActionCommand().equalsIgnoreCase("quit")) {
+      System.exit(0);
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("move robot 1")){
+      glEventListener.robot1Move();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("stop robot 1")){
+      glEventListener.robot1Stop();
+    }
   }
 
   private class windowHandler extends WindowAdapter {

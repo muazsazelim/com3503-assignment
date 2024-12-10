@@ -229,7 +229,7 @@ public class Robot2 {
         robotRoot.update(); // IMPORTANT – the scene graph has changed
     }
 
-
+    public int robot2Move = 0; // 0 - Move, 1 - Stop
 
     public void render(GL3 gl) {
         updateMovement();

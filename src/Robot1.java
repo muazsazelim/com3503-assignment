@@ -287,8 +287,16 @@ public class Robot1 {
         return System.currentTimeMillis()/1000.0;
     }
 
+    public int robot1Move = 0; // 0 - Proximity, 1 - Move, 2 - Stop
+
+
     public void render(GL3 gl, float x, float z) {
-        if (checkDistance(x, z)) {
+        if (robot1Move == 0) {
+            if (checkDistance(x, z)) {
+                updateBranches();
+            }
+        }
+        else if (robot1Move == 1) {
             updateBranches();
         }
 

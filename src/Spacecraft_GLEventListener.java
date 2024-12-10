@@ -118,6 +118,14 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     robot2.initialise(gl);
   }
 
+  public void robot1Move() {
+    robot1.robot1Move = 1;
+  }
+
+  public void robot1Stop() {
+    robot1.robot1Move = 2;
+  }
+
 
   public void render(GL3 gl) {
     gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
