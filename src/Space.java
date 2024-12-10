@@ -52,11 +52,10 @@ public class Space {
 
     private Model spaceWall(GL3 gl, Texture t) {
         String name="space wall";
-        // side wall - right
         Vec3 basecolor = new Vec3(0.5f, 0.5f, 0.5f); // grey
         Material material = new Material(basecolor, basecolor, new Vec3(0.3f, 0.3f, 0.3f), 4.0f);    // side wall - right
         Mat4 modelMatrix = new Mat4(1);
-        modelMatrix = Mat4.multiply(Mat4Transform.scale(size,1f, size), modelMatrix);
+        modelMatrix = Mat4.multiply(Mat4Transform.scale(size * 1.5f,1f, size), modelMatrix);
         modelMatrix = Mat4.multiply(Mat4Transform.rotateAroundY(90), modelMatrix);
         modelMatrix = Mat4.multiply(Mat4Transform.rotateAroundZ(-90), modelMatrix);
         modelMatrix = Mat4.multiply(Mat4Transform.translate(-size*0.51f,size*0.5f,0), modelMatrix);
