@@ -273,7 +273,7 @@ public class Robot1 {
     }
 
     private boolean checkDistance(float x, float z) {
-        if (x < 0 || z < 0) {
+        if (z < 6) {
             return true;
         } else {
             return false;
