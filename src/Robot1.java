@@ -11,7 +11,7 @@ public class Robot1 {
     private Camera camera;
     private Light[] lights;
     private SGNode sgnode;
-    private Texture t0, t1, t2, t3;
+    private Texture t0, t1, t2, t3, t4;
     private Model sphere1, sphere2, sphere3,  cube, cube1;
     private SGNode robotRoot;
     private TransformNode robotMoveTranslate, rotateAll, rotateUpper1, rotateUpper2, rotateUpper3, rotateUpper4, rotateUpper5, rotateUpper6;
@@ -19,13 +19,14 @@ public class Robot1 {
     private float rotateUpperAngleStart = -60, rotateUpperAngle = rotateUpperAngleStart;
 
 
-    public Robot1(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1, Texture t2, Texture t3) {
+    public Robot1(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1, Texture t2, Texture t3, Texture t4) {
         camera = c;
         lights = l;
-        this.t0 = t0; // eye and hair
+        this.t0 = t0; // eye
         this.t1 = t1; // base
         this.t2 = t2; // body 1
         this.t3 = t3; // body 2
+        this.t4 = t4; // hair
     }
 
     public void initialise(GL3 gl) {
@@ -33,7 +34,7 @@ public class Robot1 {
         sphere2 = makeSphere(gl, t3); // body1, body3
         sphere3 = makeSphere(gl, t0);
         cube = makeCube(gl, t1); // base
-        cube1 = makeCube(gl, t0);
+        cube1 = makeCube(gl, t4);
 
         float baseHeight = 0.5f;
         float baseScale = 2f;
@@ -227,6 +228,7 @@ public class Robot1 {
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(-0.5f, 2.5f,0.7f));
         m = Mat4.multiply(m, Mat4Transform.scale(0.5f, 0.5f, 0.5f));
+        m = Mat4.multiply(m, Mat4Transform.rotateAroundX(180));
         TransformNode headTransform = new TransformNode("rightEye transform", m);
         ModelNode headShape = new ModelNode("Sphere(rightEye)", sphere);
         rightEye.addChild(headTransform);
@@ -239,6 +241,7 @@ public class Robot1 {
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(0.5f, 2.5f,0.7f));
         m = Mat4.multiply(m, Mat4Transform.scale(0.5f, 0.5f, 0.5f));
+        m = Mat4.multiply(m, Mat4Transform.rotateAroundX(180));
         TransformNode headTransform = new TransformNode("leftEye transform", m);
         ModelNode headShape = new ModelNode("Sphere(leftEye)", sphere);
         leftEye.addChild(headTransform);

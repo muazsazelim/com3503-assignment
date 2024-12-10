@@ -17,11 +17,11 @@ public class Robot2 {
     private float rotateAllAngleStart = 25, rotateAllAngle = rotateAllAngleStart;
     private float rotateUpperAngleStart = -60, rotateUpperAngle = rotateUpperAngleStart;
 
-    public Robot2(GL3 gl, Camera c, Light[] l, Texture t0) {
+    public Robot2(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1) {
         camera = c;
         lights = l;
-        this.t0 = t0;
-        //this.t1 = t1;
+        this.t0 = t0; // body
+        this.t1 = t1; // eye
         //this.t2 = t2;
         //this.t3 = t3;
     }

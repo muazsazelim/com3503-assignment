@@ -93,6 +93,7 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     textures.add(gl, "black", "assets/textures/black.jpg");
     textures.add(gl, "r1body1", "assets/textures/r1body1.jpg");
     textures.add(gl, "r1body2", "assets/textures/r1body2.jpg");
+    textures.add(gl, "eye", "assets/textures/eye.jpg");
 
   }
 
@@ -108,9 +109,9 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     space = new Space(gl, camera, lights);
     space.loadTextures(gl);
     globe = new Globe(gl, camera, lights, textures.get("box"), textures.get("globe"), textures.get("space"));
-    robot1 = new Robot1(gl, camera, lights, textures.get("black"), textures.get("base"), textures.get("r1body1"), textures.get("r1body2"));
+    robot1 = new Robot1(gl, camera, lights, textures.get("eye"), textures.get("base"), textures.get("r1body1"), textures.get("r1body2"), textures.get("black"));
     robot1.initialise(gl);
-    robot2 = new Robot2(gl, camera, lights, textures.get("black"));
+    robot2 = new Robot2(gl, camera, lights, textures.get("eye"), textures.get("black"));
     robot2.initialise(gl);
   }
 
