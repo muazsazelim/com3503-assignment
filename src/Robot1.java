@@ -14,7 +14,7 @@ public class Robot1 {
     private Texture t0, t1, t2, t3;
     private Model sphere1, sphere2, sphere3,  cube, cube1;
     private SGNode robotRoot;
-    private TransformNode robotMoveTranslate, rotateAll, rotateUpper1, rotateUpper2, rotateUpper3;
+    private TransformNode robotMoveTranslate, rotateAll, rotateUpper1, rotateUpper2, rotateUpper3, rotateUpper4, rotateUpper5, rotateUpper6;
     private float rotateAllAngleStart = 25, rotateAllAngle = rotateAllAngleStart;
     private float rotateUpperAngleStart = -60, rotateUpperAngle = rotateUpperAngleStart;
 
@@ -54,7 +54,10 @@ public class Robot1 {
         rotateAll = new TransformNode("rotateAroundZ("+rotateAllAngle+")", Mat4Transform.rotateAroundZ(rotateAllAngle));
         rotateUpper1 = new TransformNode("rotateAroundZ(-"+rotateUpperAngle+")",Mat4Transform.rotateAroundZ(-rotateUpperAngle));
         rotateUpper2 = new TransformNode("rotateAroundZ("+rotateUpperAngle+")",Mat4Transform.rotateAroundZ(rotateUpperAngle));
-        rotateUpper3 = new TransformNode("rotateAroundZ("+rotateUpperAngle+")",Mat4Transform.rotateAroundY(rotateUpperAngle));
+        rotateUpper3 = new TransformNode("rotateAroundY("+rotateUpperAngle+")",Mat4Transform.rotateAroundY(rotateUpperAngle));
+        rotateUpper4 = new TransformNode("rotateAroundY("+rotateUpperAngle+")",Mat4Transform.rotateAroundY(-rotateUpperAngle));
+        rotateUpper5 = new TransformNode("rotateAroundZ("+rotateUpperAngle+")",Mat4Transform.rotateAroundZ(rotateUpperAngle));
+        rotateUpper6 = new TransformNode("rotateAroundZ("+rotateUpperAngle+")",Mat4Transform.rotateAroundZ(-rotateUpperAngle));
 
 
 
@@ -88,8 +91,11 @@ public class Robot1 {
                                         head.addChild(leftEye);
                                         body1.addChild(translate3);
                                             translate3.addChild(rotateUpper3);
-                                                rotateUpper3.addChild(rightHand);
-                                                rotateUpper3.addChild(leftHand);
+                                                rotateUpper3.addChild(rotateUpper5);
+                                                    rotateUpper5.addChild(rightHand);
+                                            translate3.addChild(rotateUpper4);
+                                                rotateUpper4.addChild(rotateUpper6);
+                                                    rotateUpper6.addChild(leftHand);
             // rotateAll.addChild(body1);
             // rotateAll.addChild(body2);
             // rotateAll.addChild(head);
@@ -248,7 +254,11 @@ public class Robot1 {
         rotateAll.setTransform(Mat4Transform.rotateAroundZ(rotateAllAngle));
         rotateUpper1.setTransform(Mat4Transform.rotateAroundZ(-rotateUpperAngle));
         rotateUpper2.setTransform(Mat4Transform.rotateAroundZ(rotateUpperAngle));
-        rotateUpper3.setTransform(Mat4Transform.rotateAroundY(rotateUpperAngle));
+        rotateUpper3.setTransform(Mat4Transform.rotateAroundY(rotateUpperAngle/2));
+        rotateUpper4.setTransform(Mat4Transform.rotateAroundY(-rotateUpperAngle/2));
+        rotateUpper5.setTransform(Mat4Transform.rotateAroundZ(rotateUpperAngle/2));
+        rotateUpper6.setTransform(Mat4Transform.rotateAroundZ(-rotateUpperAngle/2));
+
 
         robotRoot.update(); // IMPORTANT – the scene graph has changed
     }

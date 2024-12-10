@@ -17,6 +17,9 @@ public class Light {
     material.setAmbient(0.3f, 0.3f, 0.3f);
     material.setDiffuse(0.7f, 0.7f, 0.7f);
     material.setSpecular(0.7f, 0.7f, 0.7f);
+    //material.setAmbient(0f, 0f, 0f);
+    //material.setDiffuse(0f, 0f, 0f);
+    //material.setSpecular(0f, 0f, 0f);
     position = new Vec3(3f,2f,1f);
     model = new Mat4(1);
     
