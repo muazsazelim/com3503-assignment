@@ -74,6 +74,7 @@ public class Spacecraft_GLEventListener implements GLEventListener {
   private Robot1 robot1;
   private Robot2 robot2;
   private Light[] lights = new Light[2];
+  private Material dimMaterial;
 
   private void loadTextures(GL3 gl) {
     textures = new TextureLibrary();
@@ -132,6 +133,34 @@ public class Spacecraft_GLEventListener implements GLEventListener {
 
   public void robot2Stop() {
     robot2.robot2Move = 1;
+  }
+
+
+  public void onGeneralLight() {
+    dimMaterial = new Material();
+    dimMaterial.setAmbient(0.2f, 0.2f, 0.2f);
+    dimMaterial.setDiffuse(0.7f, 0.7f, 0.7f);
+    dimMaterial.setSpecular(0.7f, 0.7f, 0.7f);
+    lights[0].setMaterial(dimMaterial);
+    lights[1].setMaterial(dimMaterial);
+  }
+
+  public void dimGeneralLight() {
+    dimMaterial = new Material();
+    dimMaterial.setAmbient(0.0f, 0.0f, 0.0f);
+    dimMaterial.setDiffuse(0.7f, 0.7f, 0.7f);
+    dimMaterial.setSpecular(0.7f, 0.7f, 0.7f);
+    lights[0].setMaterial(dimMaterial);
+    lights[1].setMaterial(dimMaterial);
+  }
+
+  public void offGeneralLight() {
+    dimMaterial = new Material();
+    dimMaterial.setAmbient(0.0f, 0.0f, 0.0f);
+    dimMaterial.setDiffuse(0.0f, 0.0f, 0.0f);
+    dimMaterial.setSpecular(0.0f, 0.0f, 0.0f);
+    lights[0].setMaterial(dimMaterial);
+    lights[1].setMaterial(dimMaterial);
   }
 
 

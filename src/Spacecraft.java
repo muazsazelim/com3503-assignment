@@ -56,7 +56,16 @@ public class Spacecraft extends JFrame implements ActionListener{
     menuBar.add(fileMenu);
 
     JPanel p = new JPanel();
-    JButton b = new JButton("Move Robot 1");
+    JButton b = new JButton("On General Light");
+      b.addActionListener(this);
+    p.add(b);
+    b = new JButton("Dim General Light");
+      b.addActionListener(this);
+    p.add(b);
+    b = new JButton("Off General Light");
+      b.addActionListener(this);
+    p.add(b);
+    b = new JButton("Move Robot 1");
       b.addActionListener(this);
     p.add(b);
     b = new JButton("Stop Robot 1");
@@ -89,6 +98,15 @@ public class Spacecraft extends JFrame implements ActionListener{
     }
     else if (e.getActionCommand().equalsIgnoreCase("stop robot 2")){
       glEventListener.robot2Stop();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("dim general light")){
+      glEventListener.dimGeneralLight();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("off general light")){
+      glEventListener.offGeneralLight();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("on general light")){
+      glEventListener.onGeneralLight();
     }
   }
 
