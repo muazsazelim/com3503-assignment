@@ -128,11 +128,12 @@ public class Spacecraft_GLEventListener implements GLEventListener {
   }
 
   public void robot2Move() {
-    robot2.robot2Move = 0;
-  }
-
-  public void robot2Stop() {
-    robot2.robot2Move = 1;
+    if (robot2.robot2Move == 0) {
+      robot2.robot2Move = 1;
+    }
+    else {
+      robot2.robot2Move = 0;
+    }
   }
 
 
