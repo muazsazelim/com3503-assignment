@@ -138,8 +138,8 @@ public class Robot2 {
     private static final float ROTATION_SPEED = 2f; // Degrees per frame for smooth rotation
     private static final float PAUSE_DURATION = 1.0f; // Pause duration in seconds
 
-    private float x = 6f;        // Current x position
-    private float z = -7f;       // Current z position
+    public float x = 6f;        // Current x position
+    public float z = -7f;       // Current z position
     private int state = 0;       // Current movement state (0=up, 1=left, 2=down, 3=right)
     private float rotationAngle = 0f;  // Current rotation angle
     private float targetRotationAngle = 0f; // Target rotation angle
