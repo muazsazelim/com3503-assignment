@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.JFrame;
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
@@ -29,6 +30,7 @@ public class Spacecraft extends JFrame {
     addWindowListener(new windowHandler());
     animator = new FPSAnimator(canvas, 60);
     animator.start();
+
   }
 
   private void setUpCanvas() {
@@ -40,6 +42,22 @@ public class Spacecraft extends JFrame {
     canvas.addGLEventListener(glEventListener);
     canvas.addMouseMotionListener(new MyMouseInput(camera));
     canvas.addKeyListener(new MyKeyboardInput(camera));
+    getContentPane().add(canvas, BorderLayout.CENTER);
+
+    JMenuBar menuBar=new JMenuBar();
+    this.setJMenuBar(menuBar);
+      JMenu fileMenu = new JMenu("File");
+        JMenuItem quitItem = new JMenuItem("Quit");
+        // quitItem.addActionListener(this);
+        fileMenu.add(quitItem);
+    menuBar.add(fileMenu);
+
+    JPanel p = new JPanel();
+    JButton b = new JButton("camera X");
+    // b.addActionListener(this);
+    p.add(b);
+    this.add(p, BorderLayout.SOUTH);
+
   }
 
   private class windowHandler extends WindowAdapter {
