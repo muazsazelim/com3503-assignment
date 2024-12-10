@@ -28,6 +28,7 @@ public class Robot2 {
 
     public void initialise(GL3 gl) {
         cube = makeCube(gl, t0); // body
+        sphere1 = makeSphere(gl, t1); // eye
 
         float bodyScale = 1.0f;
         float bodyLength = 3.0f;
@@ -37,8 +38,12 @@ public class Robot2 {
         robotMoveTranslate = new TransformNode("robot transform",Mat4Transform.translate(0,0,0));
 
         NameNode body = makeBody(gl, bodyLength, bodyScale, cube);
+        NameNode rightEye = makeRightEye(gl, sphere1);
+        NameNode leftEye = makeLeftEye(gl, sphere1);
 
         robotRoot.addChild(body);
+        robotRoot.addChild(rightEye);
+        robotRoot.addChild(leftEye);
 
         robotRoot.update();
     }
@@ -67,12 +72,40 @@ public class Robot2 {
     private NameNode makeBody(GL3 gl, float bodyLength, float bodyScale, Model cube) {
         NameNode body = new NameNode("body");
         Mat4 m = Mat4Transform.scale(bodyScale, bodyScale, bodyLength);
-        m = Mat4.multiply(m, Mat4Transform.translate(0,0f,0));
+        m = Mat4.multiply(m, Mat4Transform.translate(0,0.5f,0));
         TransformNode baseTransform = new TransformNode("body transform", m);
         ModelNode bodyShape = new ModelNode("Cube(body)", cube);
         body.addChild(baseTransform);
         baseTransform.addChild(bodyShape);
         return body;
+    }
+
+    private NameNode makeRightEye (GL3 gl, Model sphere) {
+        NameNode rightEye = new NameNode("rightEye");
+        Mat4 m = new Mat4(1);
+        m = Mat4.multiply(m, Mat4Transform.translate(-0.5f, 0.5f,1.5f));
+        m = Mat4.multiply(m, Mat4Transform.scale(0.5f, 0.5f, 0.5f));
+        m = Mat4.multiply(m, Mat4Transform.rotateAroundX(180));
+        m = Mat4.multiply(m, Mat4Transform.rotateAroundZ(90));
+        TransformNode headTransform = new TransformNode("rightEye transform", m);
+        ModelNode headShape = new ModelNode("Sphere(rightEye)", sphere);
+        rightEye.addChild(headTransform);
+        headTransform.addChild(headShape);
+        return rightEye;
+    }
+
+    private NameNode makeLeftEye (GL3 gl, Model sphere) {
+        NameNode leftEye = new NameNode("leftEye");
+        Mat4 m = new Mat4(1);
+        m = Mat4.multiply(m, Mat4Transform.translate(0.5f, 0.5f,1.5f));
+        m = Mat4.multiply(m, Mat4Transform.scale(0.5f, 0.5f, 0.5f));
+        m = Mat4.multiply(m, Mat4Transform.rotateAroundX(180));
+        m = Mat4.multiply(m, Mat4Transform.rotateAroundZ(90));
+        TransformNode headTransform = new TransformNode("leftEye transform", m);
+        ModelNode headShape = new ModelNode("Sphere(leftEye)", sphere);
+        leftEye.addChild(headTransform);
+        headTransform.addChild(headShape);
+        return leftEye;
     }
 
 

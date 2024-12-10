@@ -52,6 +52,8 @@ public class Robot1 {
         TransformNode translate1 = new TransformNode("translate(0, top1, 0)",Mat4Transform.translate(0,1.9f,0));
         TransformNode translate2 = new TransformNode("translate(0, top2, 0)",Mat4Transform.translate(0,1.5f,0));
         TransformNode translate3 = new TransformNode("translate(0, top2, 0)",Mat4Transform.translate(0,0.75f,0));
+        TransformNode translate4 = new TransformNode("translate(0, 3, 0)",Mat4Transform.translate(0,3f,0));
+
         rotateAll = new TransformNode("rotateAroundZ("+rotateAllAngle+")", Mat4Transform.rotateAroundZ(rotateAllAngle));
         rotateUpper1 = new TransformNode("rotateAroundZ(-"+rotateUpperAngle+")",Mat4Transform.rotateAroundZ(-rotateUpperAngle));
         rotateUpper2 = new TransformNode("rotateAroundZ("+rotateUpperAngle+")",Mat4Transform.rotateAroundZ(rotateUpperAngle));
@@ -87,7 +89,8 @@ public class Robot1 {
                                 translate2.addChild(rotateUpper2);
                                     rotateUpper2.addChild(body1);
                                         body1.addChild(head);
-                                        head.addChild(hair);
+                                        head.addChild(translate4);
+                                            translate4.addChild(hair);
                                         head.addChild(rightEye);
                                         head.addChild(leftEye);
                                         body1.addChild(translate3);
@@ -213,8 +216,8 @@ public class Robot1 {
     private NameNode makeHair(GL3 gl, Model cube) {
         NameNode hair = new NameNode("hair");
         Mat4 m = new Mat4(1);
-        m = Mat4.multiply(m, Mat4Transform.translate(0f, 3f,0));
-        m = Mat4.multiply(m, Mat4Transform.scale(0.25f, 1.5f, 1.5f));
+        m = Mat4.multiply(m, Mat4Transform.translate(0f, 0f,0));
+        m = Mat4.multiply(m, Mat4Transform.scale(0.25f, 1.5f, 2f));
         TransformNode headTransform = new TransformNode("hair transform", m);
         ModelNode headShape = new ModelNode("Cube(hair)", cube);
         hair.addChild(headTransform);
@@ -226,7 +229,7 @@ public class Robot1 {
     private NameNode makeRightEye (GL3 gl, Model sphere) {
         NameNode rightEye = new NameNode("rightEye");
         Mat4 m = new Mat4(1);
-        m = Mat4.multiply(m, Mat4Transform.translate(-0.5f, 2.5f,0.7f));
+        m = Mat4.multiply(m, Mat4Transform.translate(-0.5f, 2.5f,0.8f));
         m = Mat4.multiply(m, Mat4Transform.scale(0.5f, 0.5f, 0.5f));
         m = Mat4.multiply(m, Mat4Transform.rotateAroundX(180));
         TransformNode headTransform = new TransformNode("rightEye transform", m);
@@ -239,7 +242,7 @@ public class Robot1 {
     private NameNode makeLeftEye (GL3 gl, Model sphere) {
         NameNode leftEye = new NameNode("leftEye");
         Mat4 m = new Mat4(1);
-        m = Mat4.multiply(m, Mat4Transform.translate(0.5f, 2.5f,0.7f));
+        m = Mat4.multiply(m, Mat4Transform.translate(0.5f, 2.5f,0.8f));
         m = Mat4.multiply(m, Mat4Transform.scale(0.5f, 0.5f, 0.5f));
         m = Mat4.multiply(m, Mat4Transform.rotateAroundX(180));
         TransformNode headTransform = new TransformNode("leftEye transform", m);

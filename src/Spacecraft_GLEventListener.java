@@ -111,7 +111,7 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     globe = new Globe(gl, camera, lights, textures.get("box"), textures.get("globe"), textures.get("space"));
     robot1 = new Robot1(gl, camera, lights, textures.get("eye"), textures.get("base"), textures.get("r1body1"), textures.get("r1body2"), textures.get("black"));
     robot1.initialise(gl);
-    robot2 = new Robot2(gl, camera, lights, textures.get("eye"), textures.get("black"));
+    robot2 = new Robot2(gl, camera, lights, textures.get("black"), textures.get("eye"));
     robot2.initialise(gl);
   }
 
