@@ -62,6 +62,12 @@ public class Spacecraft extends JFrame implements ActionListener{
     b = new JButton("Stop Robot 1");
       b.addActionListener(this);
     p.add(b);
+    b = new JButton("Move Robot 2");
+      b.addActionListener(this);
+    p.add(b);
+    b = new JButton("Stop Robot 2");
+      b.addActionListener(this);
+    p.add(b);
     this.add(p, BorderLayout.SOUTH);
 
   }
@@ -77,6 +83,12 @@ public class Spacecraft extends JFrame implements ActionListener{
     }
     else if (e.getActionCommand().equalsIgnoreCase("stop robot 1")){
       glEventListener.robot1Stop();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("move robot 2")){
+      glEventListener.robot2Move();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("stop robot 2")){
+      glEventListener.robot2Stop();
     }
   }
 

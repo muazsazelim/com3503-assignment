@@ -232,7 +232,10 @@ public class Robot2 {
     public int robot2Move = 0; // 0 - Move, 1 - Stop
 
     public void render(GL3 gl) {
-        updateMovement();
+        if (robot2Move == 0) {
+
+            updateMovement();
+        }
         robotRoot.draw(gl);
     }
 
