@@ -252,11 +252,14 @@ public class Robot1 {
         return leftEye;
     }
 
+    private double angle = 0.0f;
 
     private void updateBranches() {
-        double elapsedTime = getSeconds()-startTime;
-        rotateAllAngle = rotateAllAngleStart*(float)Math.sin(elapsedTime);
-        rotateUpperAngle = rotateUpperAngleStart*(float)Math.sin(elapsedTime*2f);
+
+        angle += 0.05f;
+
+        rotateAllAngle = rotateAllAngleStart*(float)Math.sin(angle);
+        rotateUpperAngle = rotateUpperAngleStart*(float)Math.sin(angle*2f);
         rotateAll.setTransform(Mat4Transform.rotateAroundZ(rotateAllAngle));
         rotateUpper1.setTransform(Mat4Transform.rotateAroundZ(-rotateUpperAngle));
         rotateUpper2.setTransform(Mat4Transform.rotateAroundZ(rotateUpperAngle));
@@ -269,6 +272,14 @@ public class Robot1 {
         robotRoot.update(); // IMPORTANT – the scene graph has changed
     }
 
+    private boolean checkDistance(float x, float z) {
+        if (x < 0 || z < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     private double startTime;
 
@@ -276,8 +287,11 @@ public class Robot1 {
         return System.currentTimeMillis()/1000.0;
     }
 
-    public void render(GL3 gl) {
-        updateBranches();
+    public void render(GL3 gl, float x, float z) {
+        if (checkDistance(x, z)) {
+            updateBranches();
+        }
+
         robotRoot.draw(gl);
     }
 
