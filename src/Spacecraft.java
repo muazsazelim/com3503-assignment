@@ -1,3 +1,6 @@
+/* Author: Mu'az bin Mohamad Nor Sazelim */
+/* Email: mabmohamadnorsazelim1@sheffield.ac.uk */
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
