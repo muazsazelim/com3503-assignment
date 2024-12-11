@@ -25,7 +25,7 @@ public class Light {
     //material.setSpecular(0f, 0f, 0f);
     position = new Vec3(3f,2f,1f);
     model = new Mat4(1);
-    direction = new Vec3(1f, -1f, 0f); // Direction vector should be normalized
+    direction = new Vec3(1f, -0.1f, 0f); // Direction vector should be normalized
     cutOff = (float) Math.cos(Math.toRadians(12.5f)); // Convert angle to cosine for shader use
     outerCutOff = (float) Math.cos(Math.toRadians(17.5f));
 

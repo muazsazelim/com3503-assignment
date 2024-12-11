@@ -17,6 +17,33 @@ public class Robot2 {
     private float rotateUpperAngleStart = -60, rotateUpperAngle = rotateUpperAngleStart;
     private Light spotlight;
 
+    float[][] coordinates = {
+            {1.00f, 0.00f},
+            {0.83f, 0.17f},
+            {0.67f, 0.33f},
+            {0.50f, 0.50f},
+            {0.33f, 0.67f},
+            {0.17f, 0.83f},
+            {0.00f, 1.00f},
+            {-0.17f, 0.83f},
+            {-0.33f, 0.67f},
+            {-0.50f, 0.50f},
+            {-0.67f, 0.33f},
+            {-0.83f, 0.17f},
+            {-1.00f, 0.00f},
+            {-0.83f, -0.17f},
+            {-0.67f, -0.33f},
+            {-0.50f, -0.50f},
+            {-0.33f, -0.67f},
+            {-0.17f, -0.83f},
+            {0.00f, -1.00f},
+            {0.17f, -0.83f},
+            {0.33f, -0.67f},
+            {0.50f, -0.50f},
+            {0.67f, -0.33f},
+            {0.83f, -0.17f}
+    };
+
     public Robot2(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1, Texture t2) {
         camera = c;
         lights = l;
@@ -270,12 +297,33 @@ public class Robot2 {
         robotRoot.update(); // IMPORTANT – the scene graph has changed
     }
 
+    private int turn = 0;
+    private int doubleTurn = 0;
+    private float xSpot = 1f;
+    private float zSpot = 0f;
+
+    private void spotlightRotate() {
+        float[] coordinate = coordinates[turn];
+        xSpot = coordinate[0];
+        zSpot = coordinate[1];
+        spotlight.setDirection(new Vec3(xSpot, -0.1f, zSpot));
+
+        doubleTurn++;
+        if (doubleTurn == 2) {
+            turn++;
+            doubleTurn = 0;
+        }
+        if (turn == 23) {
+            turn = 0;
+        }
+
+    }
 
     public int robot2Move = 0; // 0 - Move, 1 - Stop
 
     public void render(GL3 gl) {
         if (robot2Move == 0) {
-
+            spotlightRotate();
             updateMovement();
         }
 
