@@ -177,8 +177,8 @@ public class Spacecraft_GLEventListener implements GLEventListener {
   public void dimSpotlight() {
     dimMaterial = new Material();
     dimMaterial.setAmbient(0.0f, 0.0f, 0.0f);
-    dimMaterial.setDiffuse(0.7f, 0.7f, 0.7f);
-    dimMaterial.setSpecular(0.7f, 0.7f, 0.7f);
+    dimMaterial.setDiffuse(0.5f, 0.5f, 0.5f);
+    dimMaterial.setSpecular(0.5f, 0.5f, 0.5f);
     lights[1].setMaterial(dimMaterial);
   }
 

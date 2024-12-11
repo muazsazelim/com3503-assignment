@@ -1,3 +1,6 @@
+/* Author: Mu'az bin Mohamad Nor Sazelim */
+/* Email: mabmohamadnorsazelim1@sheffield.ac.uk */
+
 import gmaths.*;
 
 import com.jogamp.common.nio.*;

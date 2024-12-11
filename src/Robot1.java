@@ -1,3 +1,6 @@
+/* Author: Mu'az bin Mohamad Nor Sazelim */
+/* Email: mabmohamadnorsazelim1@sheffield.ac.uk */
+
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.texture.Texture;

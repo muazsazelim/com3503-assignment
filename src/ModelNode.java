@@ -10,6 +10,9 @@ public class ModelNode extends SGNode {
     model = m; 
   }
 
+  /* Author: Mu'az bin Mohamad Nor Sazelim */
+  /* Email: mabmohamadnorsazelim1@sheffield.ac.uk */
+
   public ModelNode(String name, Light spotlight2) {
     super(name);
     spotlight = spotlight2;

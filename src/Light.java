@@ -105,6 +105,9 @@ public class Light {
     gl.glBindVertexArray(0);
   }
 
+  /* Author: Mu'az bin Mohamad Nor Sazelim */
+  /* Email: mabmohamadnorsazelim1@sheffield.ac.uk */
+
   public void render(GL3 gl, Mat4 worldTranslate) { //, Mat4 perspective, Mat4 view) {
     Mat4 model = new Mat4(1);
     model = Mat4.multiply(Mat4Transform.scale(0f,0.3f,0.3f), model);

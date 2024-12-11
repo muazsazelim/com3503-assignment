@@ -108,6 +108,9 @@ public class ModelMultipleLights {
 
     shader.setInt(gl,"numLights", lights.length);
 
+    /* Author: Mu'az bin Mohamad Nor Sazelim */
+    /* Email: mabmohamadnorsazelim1@sheffield.ac.uk */
+
     for (int i=0; i<lights.length; i++) {
       shader.setVec3(gl, "lights["+i+"].position", lights[i].getPosition());
       shader.setVec3(gl, "lights["+i+"].ambient", lights[i].getMaterial().getAmbient());
