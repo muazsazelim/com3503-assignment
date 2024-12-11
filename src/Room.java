@@ -9,7 +9,7 @@ import com.jogamp.opengl.util.texture.*;
 
 public class Room {
 
-  private Model[] wall;
+  private ModelMultipleLights[] wall;
   private Camera camera;
   private Light[] lights;
   private Texture t0, t1, t2, t3, t4;
@@ -23,7 +23,7 @@ public class Room {
     this.t2 = t2; // sky
     this.t3 = t3; // wall back diffuse
     this.t4 = t4; // wall back specular
-    wall = new Model[10];
+    wall = new ModelMultipleLights[10];
     wall[0] = makeWall0(gl);
     wall[1] = makeWall1(gl);
     wall[2] = makeWall2(gl);
@@ -38,7 +38,7 @@ public class Room {
   // There is repetition in each of the following methods
   // An alternative would attempt to remove the repetition
  
-  private Model makeWall0(GL3 gl) {
+  private ModelMultipleLights makeWall0(GL3 gl) {
     String name="floor";
     Vec3 basecolor = new Vec3(0.5f, 0.5f, 0.5f); // grey
     Material material = new Material(basecolor, basecolor, new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
@@ -47,11 +47,11 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.scale(size,1f,2 * size), modelMatrix);
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
     Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_1t.txt");
-    Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t0);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t0);
     return model;
   }
 
-  private Model makeWall1(GL3 gl) {
+  private ModelMultipleLights makeWall1(GL3 gl) {
     String name="wall";
     Vec3 basecolor = new Vec3(0.5f, 0.5f, 0.5f); // grey
     Material material = new Material(basecolor, basecolor, new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
@@ -62,11 +62,11 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.translate(0,size*0.5f,-size), modelMatrix);
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
     Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_2t.txt");
-    Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t3, t4);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t3, t4);
     return model;
   }
 
-  private Model makeWall2(GL3 gl) {
+  private ModelMultipleLights makeWall2(GL3 gl) {
     String name="wall";
     Material material = new Material(new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
     // side wall - left - top
@@ -78,11 +78,11 @@ public class Room {
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
     Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_0t.txt");
     // no texture on this model
-    Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera);
     return model;
   }
 
-  private Model makeWall3(GL3 gl) {
+  private ModelMultipleLights makeWall3(GL3 gl) {
     String name="wall";
     // side wall - right
     Vec3 basecolor = new Vec3(0.5f, 0.5f, 0.5f); // grey
@@ -94,7 +94,7 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.translate(size*0.5f,size*0.5f,0), modelMatrix);
     Mesh mesh = new Mesh(gl, TwoTrianglesRepeat.vertices.clone(), TwoTrianglesRepeat.indices.clone());
     Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_1t.txt");
-    Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t1);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t1);
 
     t1.bind(gl);
     gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
@@ -102,7 +102,7 @@ public class Room {
     return model;
   }
 
-  private Model makeWall4(GL3 gl) {
+  private ModelMultipleLights makeWall4(GL3 gl) {
     String name="roof";
     Vec3 basecolor = new Vec3(0.5f, 0.5f, 0.5f); // grey
     Material material = new Material(basecolor, basecolor, new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
@@ -113,11 +113,11 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.translate(0,size,0), modelMatrix);
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
     Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_1t.txt");
-    Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t2);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t2);
     return model;
   }
 
-  private Model makeWall5(GL3 gl) {
+  private ModelMultipleLights makeWall5(GL3 gl) {
     String name="wall";
     Material material = new Material(new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
     // side wall - left - bottom
@@ -129,11 +129,11 @@ public class Room {
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
     Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_0t.txt");
     // no texture on this model
-    Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera);
     return model;
   }
 
-  private Model makeWall6(GL3 gl) {
+  private ModelMultipleLights makeWall6(GL3 gl) {
     String name="wall";
     Material material = new Material(new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
     // side wall - left - left
@@ -145,11 +145,11 @@ public class Room {
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
     Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_0t.txt");
     // no texture on this model
-    Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera);
     return model;
   }
 
-  private Model makeWall7(GL3 gl) {
+  private ModelMultipleLights makeWall7(GL3 gl) {
     String name="wall";
     Material material = new Material(new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
     // side wall - left - right
@@ -161,7 +161,7 @@ public class Room {
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
     Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_0t.txt");
     // no texture on this model
-    Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera);
     return model;
   }
 

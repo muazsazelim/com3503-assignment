@@ -9,7 +9,7 @@ public class Globe {
     private Light[] lights;
     private Texture t0, t1, t2;
     private float size = 16f;
-    private Model[] globes;
+    private ModelMultipleLights[] globes;
 
 
     public Globe(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1, Texture t2) {
@@ -18,14 +18,14 @@ public class Globe {
         this.t0 = t0; // box texture
         this.t1 = t1; // globe
         this.t2 = t2; // stand
-        globes = new Model[3];
+        globes = new ModelMultipleLights[3];
         globes[0] = makeCube(gl);
         globes[1] = makeGlobe(gl);
         globes[2] = makeStand(gl);
         startTime = getSeconds();
     }
 
-    private Model makeCube(GL3 gl) {
+    private ModelMultipleLights makeCube(GL3 gl) {
         float cubeHeight = 2.0f;  // *** added variable to make subsequent calculations easier
 
         String name = "cube";
@@ -35,11 +35,11 @@ public class Globe {
 
         // *** scale by cubeHeight
         Mat4 modelMatrix = Mat4.multiply(Mat4Transform.scale(cubeHeight,cubeHeight,cubeHeight), Mat4Transform.translate(3f,0.5f,6f));
-        Model cube = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t0);
+        ModelMultipleLights cube = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t0);
         return cube;
     }
 
-    private Model makeGlobe(GL3 gl) {
+    private ModelMultipleLights makeGlobe(GL3 gl) {
         float cubeHeight = 2.0f;
         float sphereHeight = 2f;
 
@@ -52,11 +52,11 @@ public class Globe {
         Mat4 modelMatrix = Mat4Transform.translate(0,cubeHeight,0);
         modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.scale(sphereHeight, sphereHeight, sphereHeight));
         modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.translate(3f,0.6f,6f));
-        Model sphere = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t1);
+        ModelMultipleLights sphere = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t1);
         return sphere;
     }
 
-    private Model makeStand(GL3 gl) {
+    private ModelMultipleLights makeStand(GL3 gl) {
         float cubeHeight = 2.0f;
         float sphereHeight = 2f;
 
@@ -70,7 +70,7 @@ public class Globe {
         modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.scale(sphereHeight, sphereHeight, sphereHeight));
         modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.translate(3f,0.5f,6f));
         modelMatrix = Mat4.multiply(modelMatrix, Mat4Transform.scale(0.1f, 1.5f, 0.1f));
-        Model stand = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t2);
+        ModelMultipleLights stand = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t2);
         return stand;
     }
 

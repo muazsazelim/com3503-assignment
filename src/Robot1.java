@@ -12,7 +12,7 @@ public class Robot1 {
     private Light[] lights;
     private SGNode sgnode;
     private Texture t0, t1, t2, t3, t4;
-    private Model sphere1, sphere2, sphere3,  cube, cube1;
+    private ModelMultipleLights sphere1, sphere2, sphere3,  cube, cube1;
     private SGNode robotRoot;
     private TransformNode robotMoveTranslate, rotateAll, rotateUpper1, rotateUpper2, rotateUpper3, rotateUpper4, rotateUpper5, rotateUpper6;
     private float rotateAllAngleStart = 25, rotateAllAngle = rotateAllAngleStart;
@@ -108,29 +108,29 @@ public class Robot1 {
         robotRoot.update();
     }
 
-    private Model makeSphere(GL3 gl, Texture t1) {
+    private ModelMultipleLights makeSphere(GL3 gl, Texture t1) {
         String name= "sphere";
         Mesh mesh = new Mesh(gl, Sphere.vertices.clone(), Sphere.indices.clone());
         Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_2t.txt");
         Material material = new Material(new Vec3(1.0f, 0.5f, 0.31f), new Vec3(1.0f, 0.5f, 0.31f), new Vec3(0.5f, 0.5f, 0.5f), 32.0f);
         Mat4 modelMatrix = Mat4.multiply(Mat4Transform.scale(4,4,4), Mat4Transform.translate(0,0.5f,0));
-        Model sphere = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t1);
+        ModelMultipleLights sphere = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t1);
         return sphere;
     }
 
     // base
-    private Model makeCube(GL3 gl, Texture t1) {
+    private ModelMultipleLights makeCube(GL3 gl, Texture t1) {
         String name= "cube";
         Mesh mesh = new Mesh(gl, Cube.vertices.clone(), Cube.indices.clone());
         Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_2t.txt");
         Material material = new Material(new Vec3(1.0f, 0.5f, 0.31f), new Vec3(1.0f, 0.5f, 0.31f), new Vec3(0.5f, 0.5f, 0.5f), 32.0f);
         Mat4 modelMatrix = Mat4.multiply(Mat4Transform.scale(4,4,4), Mat4Transform.translate(0,0.5f,0));
-        Model cube = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t1);
+        ModelMultipleLights cube = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t1);
         return cube;
     }
 
 
-    private NameNode makeBase(GL3 gl, float baseHeight, float baseScale, float bodyHeight, Model cube) {
+    private NameNode makeBase(GL3 gl, float baseHeight, float baseScale, float bodyHeight, ModelMultipleLights cube) {
         NameNode base = new NameNode("base");
         Mat4 m = Mat4Transform.scale(baseScale, baseHeight, baseScale);
         m = Mat4.multiply(m, Mat4Transform.translate(0,0f,0));
@@ -141,7 +141,7 @@ public class Robot1 {
         return base;
     }
 
-    private NameNode makeBody1(GL3 gl, float bodyHeight, float bodyScale, Model sphere) {
+    private NameNode makeBody1(GL3 gl, float bodyHeight, float bodyScale, ModelMultipleLights sphere) {
         NameNode body = new NameNode("body");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.scale(bodyScale,bodyHeight,bodyScale));
@@ -153,7 +153,7 @@ public class Robot1 {
         return body;
     }
 
-    private NameNode makeBody2(GL3 gl, float bodyHeight, float bodyScale, Model sphere) {
+    private NameNode makeBody2(GL3 gl, float bodyHeight, float bodyScale, ModelMultipleLights sphere) {
         NameNode body = new NameNode("body");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.scale(bodyScale,bodyHeight,bodyScale));
@@ -165,7 +165,7 @@ public class Robot1 {
         return body;
     }
 
-    private NameNode makeBody3(GL3 gl, float bodyHeight, float bodyScale, Model sphere) {
+    private NameNode makeBody3(GL3 gl, float bodyHeight, float bodyScale, ModelMultipleLights sphere) {
         NameNode body = new NameNode("body");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.scale(bodyScale,bodyHeight,bodyScale));
@@ -177,7 +177,7 @@ public class Robot1 {
         return body;
     }
 
-    private NameNode makeHead(GL3 gl, float headScale, float bodyHeight, Model sphere) {
+    private NameNode makeHead(GL3 gl, float headScale, float bodyHeight, ModelMultipleLights sphere) {
         NameNode head = new NameNode("head");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.scale(headScale,headScale,headScale));
@@ -189,7 +189,7 @@ public class Robot1 {
         return head;
     }
 
-    private NameNode makeRightHand(GL3 gl, float armLength, float armScale, Model sphere) {
+    private NameNode makeRightHand(GL3 gl, float armLength, float armScale, ModelMultipleLights sphere) {
         NameNode rightHand = new NameNode("rightHand");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(-1f, 0f,0));
@@ -201,7 +201,7 @@ public class Robot1 {
         return rightHand;
     }
 
-    private NameNode makeLeftHand(GL3 gl, float armLength, float armScale, Model sphere) {
+    private NameNode makeLeftHand(GL3 gl, float armLength, float armScale, ModelMultipleLights sphere) {
         NameNode leftHand = new NameNode("leftHand");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(1f, 0f,0));
@@ -213,7 +213,7 @@ public class Robot1 {
         return leftHand;
     }
 
-    private NameNode makeHair(GL3 gl, Model cube) {
+    private NameNode makeHair(GL3 gl, ModelMultipleLights cube) {
         NameNode hair = new NameNode("hair");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(0f, 0f,0));
@@ -226,7 +226,7 @@ public class Robot1 {
 
     }
 
-    private NameNode makeRightEye (GL3 gl, Model sphere) {
+    private NameNode makeRightEye (GL3 gl, ModelMultipleLights sphere) {
         NameNode rightEye = new NameNode("rightEye");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(-0.5f, 2.5f,0.8f));
@@ -239,7 +239,7 @@ public class Robot1 {
         return rightEye;
     }
 
-    private NameNode makeLeftEye (GL3 gl, Model sphere) {
+    private NameNode makeLeftEye (GL3 gl, ModelMultipleLights sphere) {
         NameNode leftEye = new NameNode("leftEye");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(0.5f, 2.5f,0.8f));

@@ -25,7 +25,7 @@ public class Light {
     //material.setSpecular(0f, 0f, 0f);
     position = new Vec3(3f,2f,1f);
     model = new Mat4(1);
-    direction = new Vec3(0.0f, -1.0f, 0.0f); // Direction vector should be normalized
+    direction = new Vec3(1f, -1f, 0f); // Direction vector should be normalized
     cutOff = (float) Math.cos(Math.toRadians(12.5f)); // Convert angle to cosine for shader use
     outerCutOff = (float) Math.cos(Math.toRadians(17.5f));
 
@@ -98,12 +98,25 @@ public class Light {
     
     shader.use(gl);
     shader.setFloatArray(gl, "mvpMatrix", mvpMatrix.toFloatArrayForGLSL());
-    shader.setVec3(gl, "light.direction", direction);
-    shader.setFloat(gl, "light.cutOff", cutOff);
-    shader.setFloat(gl, "light.outerCutOff", outerCutOff);
 
     gl.glBindVertexArray(vertexArrayId[0]);
     
+    gl.glDrawElements(GL.GL_TRIANGLES, indices.length, GL.GL_UNSIGNED_INT, 0);
+    gl.glBindVertexArray(0);
+  }
+
+  public void render(GL3 gl, Mat4 worldTranslate) { //, Mat4 perspective, Mat4 view) {
+    Mat4 model = new Mat4(1);
+    model = Mat4.multiply(Mat4Transform.scale(0f,0.3f,0.3f), model);
+    model = Mat4.multiply(Mat4Transform.translate(position), model);
+
+    Mat4 mvpMatrix = Mat4.multiply(camera.getPerspectiveMatrix(), Mat4.multiply(camera.getViewMatrix(), worldTranslate));
+
+    shader.use(gl);
+    shader.setFloatArray(gl, "mvpMatrix", mvpMatrix.toFloatArrayForGLSL());
+
+    gl.glBindVertexArray(vertexArrayId[0]);
+
     gl.glDrawElements(GL.GL_TRIANGLES, indices.length, GL.GL_UNSIGNED_INT, 0);
     gl.glBindVertexArray(0);
   }

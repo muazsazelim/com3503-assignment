@@ -21,7 +21,7 @@ struct Light {
 };
 
 #define MAX_POINT_LIGHTS 2
-uniform Light lights[1];
+uniform Light lights[2];
 uniform int numLights;
 
 struct Material {

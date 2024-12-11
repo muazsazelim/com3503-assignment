@@ -1,4 +1,3 @@
-import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.texture.Texture;
 import gmaths.Mat4;
@@ -11,11 +10,12 @@ public class Robot2 {
     private Light[] lights;
     private SGNode sgnode;
     private Texture t0, t1, t2, t3;
-    private Model sphere1, sphere2, sphere3,  cube, cube1;
+    private ModelMultipleLights sphere1, sphere2, sphere3,  cube, cube1;
     private SGNode robotRoot;
     private TransformNode robotMoveTranslate, robotMove, lightCoverTranslate;
     private float rotateAllAngleStart = 25, rotateAllAngle = rotateAllAngleStart;
     private float rotateUpperAngleStart = -60, rotateUpperAngle = rotateUpperAngleStart;
+    private Light spotlight;
 
     public Robot2(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1, Texture t2) {
         camera = c;
@@ -24,6 +24,8 @@ public class Robot2 {
         this.t1 = t1; // eye
         this.t2 = t2;
         //this.t3 = t3;
+
+        spotlight = lights[1];
     }
 
     public void initialise(GL3 gl) {
@@ -49,6 +51,7 @@ public class Robot2 {
         NameNode leftEye = makeLeftEye(gl, sphere1);
         NameNode antenna = makeAntenna(gl, antennaHeight, antennaScale, cube);
         NameNode lightCover = makeLightCover(gl, sphere2);
+        NameNode bulb = makeLight(gl, spotlight);
 
         robotRoot.addChild(robotMoveTranslate);
             robotMoveTranslate.addChild(robotMove);
@@ -57,33 +60,34 @@ public class Robot2 {
                 robotMove.addChild(leftEye);
                 robotMove.addChild(antenna);
                     antenna.addChild(lightCoverTranslate);
+                    lightCoverTranslate.addChild(bulb);
                         // lightCoverTranslate.addChild(lightCover);
 
         robotRoot.update();
     }
 
-    private Model makeSphere(GL3 gl, Texture t1) {
+    private ModelMultipleLights makeSphere(GL3 gl, Texture t1) {
         String name= "sphere";
         Mesh mesh = new Mesh(gl, Sphere.vertices.clone(), Sphere.indices.clone());
         Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_2t.txt");
         Material material = new Material(new Vec3(1.0f, 0.5f, 0.31f), new Vec3(1.0f, 0.5f, 0.31f), new Vec3(0.5f, 0.5f, 0.5f), 32.0f);
         Mat4 modelMatrix = Mat4.multiply(Mat4Transform.scale(4,4,4), Mat4Transform.translate(0,0,0));
-        Model sphere = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t1);
+        ModelMultipleLights sphere = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t1);
         return sphere;
     }
 
     // base
-    private Model makeCube(GL3 gl, Texture t1) {
+    private ModelMultipleLights makeCube(GL3 gl, Texture t1) {
         String name= "cube";
         Mesh mesh = new Mesh(gl, Cube.vertices.clone(), Cube.indices.clone());
         Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_2t.txt");
         Material material = new Material(new Vec3(1.0f, 0.5f, 0.31f), new Vec3(1.0f, 0.5f, 0.31f), new Vec3(0.5f, 0.5f, 0.5f), 32.0f);
         Mat4 modelMatrix = Mat4.multiply(Mat4Transform.scale(4,4,4), Mat4Transform.translate(0,0,0));
-        Model cube = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t1);
+        ModelMultipleLights cube = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t1);
         return cube;
     }
 
-    private NameNode makeBody(GL3 gl, float bodyLength, float bodyScale, Model cube) {
+    private NameNode makeBody(GL3 gl, float bodyLength, float bodyScale, ModelMultipleLights cube) {
         NameNode body = new NameNode("body");
         Mat4 m = Mat4Transform.scale(bodyScale, bodyScale, bodyLength);
         m = Mat4.multiply(m, Mat4Transform.translate(0,0f,0));
@@ -94,7 +98,7 @@ public class Robot2 {
         return body;
     }
 
-    private NameNode makeRightEye (GL3 gl, Model sphere) {
+    private NameNode makeRightEye (GL3 gl, ModelMultipleLights sphere) {
         NameNode rightEye = new NameNode("rightEye");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(-0.5f, 0f,1.5f));
@@ -108,7 +112,7 @@ public class Robot2 {
         return rightEye;
     }
 
-    private NameNode makeLeftEye (GL3 gl, Model sphere) {
+    private NameNode makeLeftEye (GL3 gl, ModelMultipleLights sphere) {
         NameNode leftEye = new NameNode("leftEye");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(0.5f, 0f,1.5f));
@@ -122,7 +126,7 @@ public class Robot2 {
         return leftEye;
     }
 
-    private NameNode makeAntenna(GL3 gl, float antennaHeight, float antennaScale, Model cube) {
+    private NameNode makeAntenna(GL3 gl, float antennaHeight, float antennaScale, ModelMultipleLights cube) {
         NameNode antenna = new NameNode("antenna");
         Mat4 m = Mat4Transform.scale(antennaScale, antennaHeight, antennaScale);
         m = Mat4.multiply(m, Mat4Transform.translate(0,0.5f,0));
@@ -133,7 +137,7 @@ public class Robot2 {
         return antenna;
     }
 
-    private NameNode makeLightCover (GL3 gl, Model sphere) {
+    private NameNode makeLightCover (GL3 gl, ModelMultipleLights sphere) {
         NameNode lightCover = new NameNode("lightCover");
         Mat4 m = new Mat4(1);
         m = Mat4.multiply(m, Mat4Transform.translate(0f, 0f,0f));
@@ -145,6 +149,21 @@ public class Robot2 {
         headTransform.addChild(headShape);
         return lightCover;
     }
+
+    private NameNode makeLight (GL3 gl, Light spotlight) {
+        NameNode lampu = new NameNode("lampu");
+        Mat4 m = new Mat4(1);
+        m = Mat4.multiply(m, Mat4Transform.translate(0f, 0f,0f));
+        m = Mat4.multiply(m, Mat4Transform.scale(0.3f, 0.3f, 0.3f));
+        // m = Mat4.multiply(m, Mat4Transform.rotateAroundZ(90));
+        TransformNode headTransform = new TransformNode("lampu transform", m);
+        ModelNode headShape = new ModelNode("Sphere(lampu)", spotlight);
+        lampu.addChild(headTransform);
+        headTransform.addChild(headShape);
+        return lampu;
+    }
+
+
 
 
     private double startTime;
@@ -246,6 +265,7 @@ public class Robot2 {
         Mat4 rotation = Mat4Transform.rotateAroundY(rotationAngle);
         robotMove.setTransform(Mat4.multiply(translation, rotation));
 
+        spotlight.setPosition(x, 3.5f, z);
         robotRoot.update(); // IMPORTANT – the scene graph has changed
     }
 

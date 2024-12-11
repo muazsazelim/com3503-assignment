@@ -170,8 +170,8 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     globe.render(gl);
     robot1.render(gl, robot2.x, robot2.z);
     robot2.render(gl);
-    lights[1].setPosition(robot2.x, 3.5f, robot2.z);
-    lights[1].render(gl);
+    //lights[1].setPosition(robot2.x, 3.5f, robot2.z);
+    //lights[1].render(gl);
 
   }
 

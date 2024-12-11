@@ -50,7 +50,7 @@ public class Space {
 
     }
 
-    private Model spaceWall(GL3 gl, Texture t) {
+    private ModelMultipleLights spaceWall(GL3 gl, Texture t) {
         String name="space wall";
         Vec3 basecolor = new Vec3(0.5f, 0.5f, 0.5f); // grey
         Material material = new Material(basecolor, basecolor, new Vec3(0.3f, 0.3f, 0.3f), 4.0f);    // side wall - right
@@ -61,7 +61,7 @@ public class Space {
         modelMatrix = Mat4.multiply(Mat4Transform.translate(-size*0.51f,size*0.5f,0), modelMatrix);
         Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
         Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_1t.txt");
-        Model model = new Model(name, mesh, modelMatrix, shader, material, lights, camera, t);
+        ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t);
 
         tl[0].bind(gl);
         gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
