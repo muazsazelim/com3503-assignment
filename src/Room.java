@@ -12,10 +12,10 @@ public class Room {
   private ModelMultipleLights[] wall;
   private Camera camera;
   private Light[] lights;
-  private Texture t0, t1, t2, t3, t4;
+  private Texture t0, t1, t2, t3, t4, t5;
   private float size = 16f;
 
-  public Room(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1, Texture t2, Texture t3, Texture t4) {
+  public Room(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1, Texture t2, Texture t3, Texture t4, Texture t5) {
     camera = c;
     lights = l;
     this.t0 = t0; // square
@@ -23,6 +23,7 @@ public class Room {
     this.t2 = t2; // sky
     this.t3 = t3; // wall back diffuse
     this.t4 = t4; // wall back specular
+    this.t5 = t5; // left wall
     wall = new ModelMultipleLights[10];
     wall[0] = makeWall0(gl);
     wall[1] = makeWall1(gl);
@@ -76,9 +77,9 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.rotateAroundZ(-90), modelMatrix);
     modelMatrix = Mat4.multiply(Mat4Transform.translate(-size*0.5f,15f,0), modelMatrix);
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
-    Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_0t.txt");
+    Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_1t.txt");
     // no texture on this model
-    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t5);
     return model;
   }
 
@@ -127,9 +128,9 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.rotateAroundZ(-90), modelMatrix);
     modelMatrix = Mat4.multiply(Mat4Transform.translate(-size*0.5f,1f,0), modelMatrix);
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
-    Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_0t.txt");
+    Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_1t.txt");
     // no texture on this model
-    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t5);
     return model;
   }
 
@@ -143,9 +144,9 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.rotateAroundZ(-90), modelMatrix);
     modelMatrix = Mat4.multiply(Mat4Transform.translate(-size*0.5f,8f,-14f), modelMatrix);
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
-    Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_0t.txt");
+    Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_1t.txt");
     // no texture on this model
-    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t5);
     return model;
   }
 
@@ -159,9 +160,9 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.rotateAroundZ(-90), modelMatrix);
     modelMatrix = Mat4.multiply(Mat4Transform.translate(-size*0.5f,8f,14f), modelMatrix);
     Mesh mesh = new Mesh(gl, TwoTriangles.vertices.clone(), TwoTriangles.indices.clone());
-    Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_0t.txt");
+    Shader shader = new Shader(gl, "assets/shaders/vs_standard.txt", "assets/shaders/fs_standard_m_1t.txt");
     // no texture on this model
-    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera);
+    ModelMultipleLights model = new ModelMultipleLights(name, mesh, modelMatrix, shader, material, lights, camera, t5);
     return model;
   }
 
