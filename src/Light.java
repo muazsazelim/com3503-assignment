@@ -17,7 +17,7 @@ public class Light {
     
   public Light(GL3 gl) {
     material = new Material();
-    material.setAmbient(0.2f, 0.2f, 0.2f);
+    material.setAmbient(0.3f, 0.3f, 0.3f);
     material.setDiffuse(0.7f, 0.7f, 0.7f);
     material.setSpecular(0.7f, 0.7f, 0.7f);
     //material.setAmbient(0f, 0f, 0f);

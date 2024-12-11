@@ -139,10 +139,9 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     }
   }
 
-
   public void onGeneralLight() {
     dimMaterial = new Material();
-    dimMaterial.setAmbient(0.2f, 0.2f, 0.2f);
+    dimMaterial.setAmbient(0.3f, 0.3f, 0.3f);
     dimMaterial.setDiffuse(0.7f, 0.7f, 0.7f);
     dimMaterial.setSpecular(0.7f, 0.7f, 0.7f);
     lights[0].setMaterial(dimMaterial);
@@ -162,6 +161,30 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     dimMaterial.setDiffuse(0.0f, 0.0f, 0.0f);
     dimMaterial.setSpecular(0.0f, 0.0f, 0.0f);
     lights[0].setMaterial(dimMaterial);
+  }
+
+  public void onSpotlight() {
+    dimMaterial = new Material();
+    dimMaterial.setAmbient(0.3f, 0.3f, 0.3f);
+    dimMaterial.setDiffuse(0.7f, 0.7f, 0.7f);
+    dimMaterial.setSpecular(0.7f, 0.7f, 0.7f);
+    lights[1].setMaterial(dimMaterial);
+  }
+
+  public void dimSpotlight() {
+    dimMaterial = new Material();
+    dimMaterial.setAmbient(0.0f, 0.0f, 0.0f);
+    dimMaterial.setDiffuse(0.7f, 0.7f, 0.7f);
+    dimMaterial.setSpecular(0.7f, 0.7f, 0.7f);
+    lights[1].setMaterial(dimMaterial);
+  }
+
+  public void offSpotlight() {
+    dimMaterial = new Material();
+    dimMaterial.setAmbient(0.0f, 0.0f, 0.0f);
+    dimMaterial.setDiffuse(0.0f, 0.0f, 0.0f);
+    dimMaterial.setSpecular(0.0f, 0.0f, 0.0f);
+    lights[1].setMaterial(dimMaterial);
   }
 
 

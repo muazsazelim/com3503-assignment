@@ -60,8 +60,8 @@ public class Robot2 {
                 robotMove.addChild(leftEye);
                 robotMove.addChild(antenna);
                     antenna.addChild(lightCoverTranslate);
-                    lightCoverTranslate.addChild(bulb);
-                        // lightCoverTranslate.addChild(lightCover);
+                        lightCoverTranslate.addChild(bulb);
+                        lightCoverTranslate.addChild(lightCover);
 
         robotRoot.update();
     }
@@ -140,8 +140,8 @@ public class Robot2 {
     private NameNode makeLightCover (GL3 gl, ModelMultipleLights sphere) {
         NameNode lightCover = new NameNode("lightCover");
         Mat4 m = new Mat4(1);
-        m = Mat4.multiply(m, Mat4Transform.translate(0f, 0f,0f));
-        m = Mat4.multiply(m, Mat4Transform.scale(1f, 1f, 1f));
+        m = Mat4.multiply(m, Mat4Transform.translate(0f, 0.1f,0f));
+        m = Mat4.multiply(m, Mat4Transform.scale(1f, 0.7f, 1f));
         // m = Mat4.multiply(m, Mat4Transform.rotateAroundZ(90));
         TransformNode headTransform = new TransformNode("lightCover transform", m);
         ModelNode headShape = new ModelNode("Sphere(lightCover)", sphere);
@@ -151,16 +151,16 @@ public class Robot2 {
     }
 
     private NameNode makeLight (GL3 gl, Light spotlight) {
-        NameNode lampu = new NameNode("lampu");
+        NameNode lamp = new NameNode("lamp");
         Mat4 m = new Mat4(1);
-        m = Mat4.multiply(m, Mat4Transform.translate(0f, 0f,0f));
+        m = Mat4.multiply(m, Mat4Transform.translate(0f, -0.2f,0f));
         m = Mat4.multiply(m, Mat4Transform.scale(0.3f, 0.3f, 0.3f));
         // m = Mat4.multiply(m, Mat4Transform.rotateAroundZ(90));
-        TransformNode headTransform = new TransformNode("lampu transform", m);
-        ModelNode headShape = new ModelNode("Sphere(lampu)", spotlight);
-        lampu.addChild(headTransform);
+        TransformNode headTransform = new TransformNode("lamp transform", m);
+        ModelNode headShape = new ModelNode("Sphere(lamp)", spotlight);
+        lamp.addChild(headTransform);
         headTransform.addChild(headShape);
-        return lampu;
+        return lamp;
     }
 
 
@@ -259,6 +259,7 @@ public class Robot2 {
         // Update transformation to reflect the current rotation
         updateTransform();
     }
+
 
     private void updateTransform() {
         Mat4 translation = Mat4Transform.translate(x, 0f, z);

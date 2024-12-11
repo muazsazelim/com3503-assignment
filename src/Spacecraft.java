@@ -55,7 +55,10 @@ public class Spacecraft extends JFrame implements ActionListener{
         fileMenu.add(quitItem);
     menuBar.add(fileMenu);
 
+    JPanel mainPanel = new JPanel(new GridLayout(2, 6, 10, 5));
     JPanel p = new JPanel();
+    JPanel p2 = new JPanel();
+
     JButton b = new JButton("On General Light");
       b.addActionListener(this);
     p.add(b);
@@ -65,16 +68,29 @@ public class Spacecraft extends JFrame implements ActionListener{
     b = new JButton("Off General Light");
       b.addActionListener(this);
     p.add(b);
+    b = new JButton("On Spotlight");
+    b.addActionListener(this);
+    p.add(b);
+    b = new JButton("Dim Spotlight");
+    b.addActionListener(this);
+    p.add(b);
+    b = new JButton("Off Spotlight");
+    b.addActionListener(this);
+    p.add(b);
     b = new JButton("Move Robot 1");
       b.addActionListener(this);
-    p.add(b);
+    p2.add(b);
     b = new JButton("Stop Robot 1");
       b.addActionListener(this);
-    p.add(b);
+    p2.add(b);
     b = new JButton("Move/Stop Robot 2");
       b.addActionListener(this);
-    p.add(b);
-    this.add(p, BorderLayout.SOUTH);
+    p2.add(b);
+
+    mainPanel.add(p);
+    mainPanel.add(p2);
+
+    this.add(mainPanel, BorderLayout.SOUTH);
 
   }
 
@@ -101,6 +117,15 @@ public class Spacecraft extends JFrame implements ActionListener{
     }
     else if (e.getActionCommand().equalsIgnoreCase("on general light")){
       glEventListener.onGeneralLight();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("dim spotlight")){
+      glEventListener.dimSpotlight();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("off spotlight")){
+      glEventListener.offSpotlight();
+    }
+    else if (e.getActionCommand().equalsIgnoreCase("on spotlight")){
+      glEventListener.onSpotlight();
     }
   }
 
