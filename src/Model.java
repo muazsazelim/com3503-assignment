@@ -112,6 +112,9 @@ public class Model {
       shader.setVec3(gl, "lights["+i+"].ambient", lights[i].getMaterial().getAmbient());
       shader.setVec3(gl, "lights["+i+"].diffuse", lights[i].getMaterial().getDiffuse());
       shader.setVec3(gl, "lights["+i+"].specular", lights[i].getMaterial().getSpecular());
+      shader.setVec3(gl, "lights["+i+"].direction", lights[i].getDirection());
+      shader.setFloat(gl, "lights["+i+"].cutOff", lights[i].getCutOff());
+      shader.setFloat(gl, "lights["+i+"].outerCutOff", lights[i].getOuterCutOff());
     }
 
     shader.setVec3(gl, "material.ambient", material.getAmbient());

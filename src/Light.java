@@ -10,6 +10,9 @@ public class Light {
   private Mat4 model;
   private Shader shader;
   private Camera camera;
+  private Vec3 direction;
+  private float cutOff;
+  private float outerCutOff;
   //private Mat4 perspective;
     
   public Light(GL3 gl) {
@@ -22,7 +25,10 @@ public class Light {
     //material.setSpecular(0f, 0f, 0f);
     position = new Vec3(3f,2f,1f);
     model = new Mat4(1);
-    
+    direction = new Vec3(0.0f, -1.0f, 0.0f); // Direction vector should be normalized
+    cutOff = (float) Math.cos(Math.toRadians(12.5f)); // Convert angle to cosine for shader use
+    outerCutOff = (float) Math.cos(Math.toRadians(17.5f));
+
     fillBuffers(gl);
     shader = new Shader(gl, "assets/shaders/vs_light_01.txt", "assets/shaders/fs_light_01.txt");
   }
@@ -54,6 +60,30 @@ public class Light {
   public void setCamera(Camera camera) {
     this.camera = camera;
   }
+
+  public void setDirection(Vec3 direction) {
+    this.direction = direction;
+  }
+
+  public void setCutOff(float cutOff) {
+    this.cutOff = cutOff;
+  }
+
+  public void setOuterCutOff(float outerCutOff) {
+    this.outerCutOff = outerCutOff;
+  }
+
+  public Vec3 getDirection() {
+    return direction;
+  }
+
+  public float getCutOff() {
+    return cutOff;
+  }
+
+  public float getOuterCutOff() {
+    return outerCutOff;
+  }
   
   /*public void setPerspective(Mat4 perspective) {
     this.perspective = perspective;
@@ -63,12 +93,15 @@ public class Light {
     Mat4 model = new Mat4(1);
     model = Mat4.multiply(Mat4Transform.scale(0.3f,0.3f,0.3f), model);
     model = Mat4.multiply(Mat4Transform.translate(position), model);
-    
+
     Mat4 mvpMatrix = Mat4.multiply(camera.getPerspectiveMatrix(), Mat4.multiply(camera.getViewMatrix(), model));
     
     shader.use(gl);
     shader.setFloatArray(gl, "mvpMatrix", mvpMatrix.toFloatArrayForGLSL());
-  
+    shader.setVec3(gl, "light.direction", direction);
+    shader.setFloat(gl, "light.cutOff", cutOff);
+    shader.setFloat(gl, "light.outerCutOff", outerCutOff);
+
     gl.glBindVertexArray(vertexArrayId[0]);
     
     gl.glDrawElements(GL.GL_TRIANGLES, indices.length, GL.GL_UNSIGNED_INT, 0);

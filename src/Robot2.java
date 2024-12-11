@@ -13,22 +13,23 @@ public class Robot2 {
     private Texture t0, t1, t2, t3;
     private Model sphere1, sphere2, sphere3,  cube, cube1;
     private SGNode robotRoot;
-    private TransformNode robotMoveTranslate, robotMove, rotateAll;
+    private TransformNode robotMoveTranslate, robotMove, lightCoverTranslate;
     private float rotateAllAngleStart = 25, rotateAllAngle = rotateAllAngleStart;
     private float rotateUpperAngleStart = -60, rotateUpperAngle = rotateUpperAngleStart;
 
-    public Robot2(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1) {
+    public Robot2(GL3 gl, Camera c, Light[] l, Texture t0, Texture t1, Texture t2) {
         camera = c;
         lights = l;
         this.t0 = t0; // body
         this.t1 = t1; // eye
-        //this.t2 = t2;
+        this.t2 = t2;
         //this.t3 = t3;
     }
 
     public void initialise(GL3 gl) {
         cube = makeCube(gl, t0); // body
         sphere1 = makeSphere(gl, t1); // eye
+        sphere2 = makeSphere(gl, t2); // light cover
 
         float bodyScale = 1.0f;
         float bodyLength = 3.0f;
@@ -38,6 +39,8 @@ public class Robot2 {
 
         robotRoot = new NameNode("root");
         robotMoveTranslate = new TransformNode("robot transform", Mat4Transform.translate(0f,0.5f,0f));
+        lightCoverTranslate = new TransformNode("light cover", Mat4Transform.translate(0f,3f,0f));
+
 
         robotMove = new TransformNode("robot move", Mat4Transform.translate(0f,0f,0f));
 
@@ -45,6 +48,7 @@ public class Robot2 {
         NameNode rightEye = makeRightEye(gl, sphere1);
         NameNode leftEye = makeLeftEye(gl, sphere1);
         NameNode antenna = makeAntenna(gl, antennaHeight, antennaScale, cube);
+        NameNode lightCover = makeLightCover(gl, sphere2);
 
         robotRoot.addChild(robotMoveTranslate);
             robotMoveTranslate.addChild(robotMove);
@@ -52,6 +56,8 @@ public class Robot2 {
                 robotMove.addChild(rightEye);
                 robotMove.addChild(leftEye);
                 robotMove.addChild(antenna);
+                    antenna.addChild(lightCoverTranslate);
+                        // lightCoverTranslate.addChild(lightCover);
 
         robotRoot.update();
     }
@@ -127,6 +133,19 @@ public class Robot2 {
         return antenna;
     }
 
+    private NameNode makeLightCover (GL3 gl, Model sphere) {
+        NameNode lightCover = new NameNode("lightCover");
+        Mat4 m = new Mat4(1);
+        m = Mat4.multiply(m, Mat4Transform.translate(0f, 0f,0f));
+        m = Mat4.multiply(m, Mat4Transform.scale(1f, 1f, 1f));
+        // m = Mat4.multiply(m, Mat4Transform.rotateAroundZ(90));
+        TransformNode headTransform = new TransformNode("lightCover transform", m);
+        ModelNode headShape = new ModelNode("Sphere(lightCover)", sphere);
+        lightCover.addChild(headTransform);
+        headTransform.addChild(headShape);
+        return lightCover;
+    }
+
 
     private double startTime;
 
@@ -147,6 +166,7 @@ public class Robot2 {
     private double pauseStartTime = 0;  // Time when the pause started
 
     private void updateMovement() {
+
         double currentTime = getSeconds();
 
         if (isPaused) {
@@ -229,6 +249,7 @@ public class Robot2 {
         robotRoot.update(); // IMPORTANT – the scene graph has changed
     }
 
+
     public int robot2Move = 0; // 0 - Move, 1 - Stop
 
     public void render(GL3 gl) {
@@ -236,6 +257,7 @@ public class Robot2 {
 
             updateMovement();
         }
+
         robotRoot.draw(gl);
     }
 

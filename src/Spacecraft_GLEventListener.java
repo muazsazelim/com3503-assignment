@@ -56,6 +56,7 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     globe.dispose(gl);
     lights[0].dispose(gl);
     lights[1].dispose(gl);
+    //lights[2].dispose(gl);
     textures.destroy(gl);
   }
 
@@ -115,7 +116,7 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     globe = new Globe(gl, camera, lights, textures.get("box"), textures.get("globe"), textures.get("space"));
     robot1 = new Robot1(gl, camera, lights, textures.get("eye2"), textures.get("base"), textures.get("r1body1"), textures.get("r1body2"), textures.get("black"));
     robot1.initialise(gl);
-    robot2 = new Robot2(gl, camera, lights, textures.get("robot2"), textures.get("eye"));
+    robot2 = new Robot2(gl, camera, lights, textures.get("robot2"), textures.get("eye"), textures.get("black"));
     robot2.initialise(gl);
   }
 
@@ -143,7 +144,6 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     dimMaterial.setDiffuse(0.7f, 0.7f, 0.7f);
     dimMaterial.setSpecular(0.7f, 0.7f, 0.7f);
     lights[0].setMaterial(dimMaterial);
-    lights[1].setMaterial(dimMaterial);
   }
 
   public void dimGeneralLight() {
@@ -152,7 +152,6 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     dimMaterial.setDiffuse(0.7f, 0.7f, 0.7f);
     dimMaterial.setSpecular(0.7f, 0.7f, 0.7f);
     lights[0].setMaterial(dimMaterial);
-    lights[1].setMaterial(dimMaterial);
   }
 
   public void offGeneralLight() {
@@ -161,7 +160,6 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     dimMaterial.setDiffuse(0.0f, 0.0f, 0.0f);
     dimMaterial.setSpecular(0.0f, 0.0f, 0.0f);
     lights[0].setMaterial(dimMaterial);
-    lights[1].setMaterial(dimMaterial);
   }
 
 
@@ -172,6 +170,9 @@ public class Spacecraft_GLEventListener implements GLEventListener {
     globe.render(gl);
     robot1.render(gl, robot2.x, robot2.z);
     robot2.render(gl);
+    lights[1].setPosition(robot2.x, 3.5f, robot2.z);
+    lights[1].render(gl);
+
   }
 
   
